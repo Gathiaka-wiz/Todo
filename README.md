@@ -1,1 +1,1 @@
-# Calculator application
+# Native Todo application in linux Mint 
