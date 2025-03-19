@@ -1,0 +1,81 @@
+$font-color:#ff4907da;
+$primary-color:#ffff;
+$light-font: #ffff ;
+$light-primary:rgba(255, 73, 7, 0.856);
+$fin:#1b1b1b;
+$faded:#80808086;
+:root{
+    // --font-color:rgba(255, 73, 7, 0.856);
+    --font-color:#ff4907da;
+    --primary-color:#fff;
+    --bcg-1:rgb(0, 0, 0);
+    --bcg-2:rgb(22, 22, 22);
+    --logo:orangered;
+    --light:white;
+    --fin:#80808086;
+}
+
+.light{
+    main{
+        background-color: rgba(255, 190, 147, 0.479);  
+    }
+    --primary-color:#ff761b;
+    --font-color:#00000096;
+    --bcg-1:#ffb45360;
+    --bcg-2:#ffcba883;
+    --logo:#ff8827;
+    --light:rgb(0, 0, 0);
+    --fin:#80808086;
+}
+
+.active{
+    #form{
+        display: flex;
+        pointer-events: all;
+    }
+    main{
+        pointer-events: none;
+        filter: blur(5px);
+    }
+}
+
+.remove{
+    display: none;
+}
+.maximize{
+    position: relative;
+    width: 90vw;
+    min-height: 90vh;
+    
+    ol{
+        h2{
+            position: absolute;
+            top: 0;
+            left: 36%;
+            margin-top: 10px;
+            
+        }
+        li:nth-child(1){
+            margin-top: 90px;
+        }
+    }
+    ol:nth-child(1){
+        margin-top: 90px;
+    }
+}
+.minimize{
+    min-width: 150px;
+    max-height: 90px;
+    overflow: scroll;
+    font-size:x-small ;
+    scrollbar-width: none;
+    button{
+        padding: 0;
+        height: min-content;
+        width: max-content;
+        font-size: xl-small;
+    }
+    input{
+        max-width: 200px;
+    }
+}

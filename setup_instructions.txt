@@ -1,0 +1,71 @@
+# Step-by-Step Guide to Setting Up a Native Linux Mint App Using GTK and WebKit
+
+## Step 1: Install Required Dependencies
+sudo apt update
+sudo apt install -y libgtk-3-dev libwebkit2gtk-4.1-dev build-essential
+
+## Step 2: Create Your Project Directory
+mkdir -p ~/Apps/Todo
+cd ~/Apps/Todo
+
+## Step 3: Create the C Source File
+nano todo.c
+
+# Paste the following content inside `todo.c`:
+------------------------------------------------------------
+#include <gtk/gtk.h>
+#include <webkit2/webkit2.h>
+
+static void activate(GtkApplication *app, gpointer user_data) {
+    GtkWidget *window = gtk_application_window_new(app);
+    gtk_window_set_title(GTK_WINDOW(window), "My Native Todo JS App");
+    gtk_window_set_default_size(GTK_WINDOW(window), 800, 600);
+
+    GtkWidget *webview = webkit_web_view_new();
+    webkit_web_view_load_uri(WEBKIT_WEB_VIEW(webview), "file:///home/$USER/Apps/Todo/index.html");
+    
+    gtk_container_add(GTK_CONTAINER(window), webview);
+    gtk_widget_show_all(window);
+}
+
+int main(int argc, char **argv) {
+    GtkApplication *app = gtk_application_new("com.example.Todo", G_APPLICATION_FLAGS_NONE);
+    g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
+    int status = g_application_run(G_APPLICATION(app), argc, argv);
+    g_object_unref(app);
+    return status;
+}
+------------------------------------------------------------
+
+Save and exit the file (CTRL+X, then Y, then Enter).
+
+## Step 4: Compile the C Program
+gcc todo.c -o Todo `pkg-config --cflags --libs gtk+-3.0 webkit2gtk-4.1`
+
+## Step 5: Create Your Web App Files
+nano index.html
+
+# Add your HTML, CSS, and JS here, then save the file.
+
+## Step 6: Run Your App
+./Todo
+
+## Step 7: (Optional) Create a Desktop Launcher
+nano ~/.local/share/applications/todo.desktop
+
+# Paste the following content:
+------------------------------------------------------------
+[Desktop Entry]
+Name=Todo App
+Exec=/home/$USER/Apps/Todo/Todo
+Icon=/home/$USER/Apps/Todo/icon.png
+Terminal=false
+Type=Application
+Categories=Utility;
+------------------------------------------------------------
+
+Save the file and refresh the desktop entries:
+chmod +x ~/.local/share/applications/todo.desktop
+gtk-update-icon-cache ~/.local/share/icons/
+
+## Done! Your app should now be accessible as a native application.
